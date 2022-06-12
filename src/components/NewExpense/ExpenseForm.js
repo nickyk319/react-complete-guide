@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -16,10 +16,6 @@ const ExpenseForm = () => {
   const titleChangeHandler = (event) => {
     // get the input value entered with 'event.target.value'
     setEnteredTitle(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredTitle: event.target.value
-    // });
 
     // If you state update depends on the previous state
     // This is a safer way to make sure you always operate on the latest state snapshot
@@ -30,18 +26,10 @@ const ExpenseForm = () => {
 
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredAmount: event.target.value
-    // });
   };
 
   const dateChangeHandler = (event) => {
     setEnteredDate(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredDate: event.target.value
-    // });
   };
 
   const submitHandler = (event) => {
@@ -53,7 +41,10 @@ const ExpenseForm = () => {
       amount: enteredAmount,
       date: new Date(enteredDate),
     };
-    console.log(expenseData);
+
+    // this statement will pass 'expenseData' entered from line 40 to line 42 as a parameter to the 'onSaveExpenseData' function in line 17 in 'NewExpense.js', which the definition is from line 7 to 12
+    props.onSaveExpenseData(expenseData);
+    // set every input cell to null after submit the form, use with 'value' tag in input below as two-way binding
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
